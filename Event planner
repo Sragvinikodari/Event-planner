@@ -1,0 +1,105 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class Event {
+    private String name;
+    private String date;
+    private String location;
+    private String description;
+
+    // Constructor to initialize an event
+    public Event(String name, String date, String location, String description) {
+        this.name = name;
+        this.date = date;
+        this.location = location;
+        this.description = description;
+    }
+
+    // Getters and setters for each field
+    public String getName() {
+        return name;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    @Override
+    public String toString() {
+        return "Event: " + name + "\nDate: " + date + "\nLocation: " + location + "\nDescription: " + description;
+    }
+}
+
+public class EventPlanner {
+    private static ArrayList<Event> events = new ArrayList<>();  // List to store events
+    private static Scanner scanner = new Scanner(System.in);
+
+    // Main method for the console interface
+    public static void main(String[] args) {
+        while (true) {
+            System.out.println("\nEvent Planner Menu:");
+            System.out.println("1. Create a new event");
+            System.out.println("2. View all events");
+            System.out.println("3. Exit");
+            System.out.print("Choose an option: ");
+            
+            int choice = scanner.nextInt();
+            scanner.nextLine();  // Consume newline character
+            
+            switch (choice) {
+                case 1:
+                    createEvent();
+                    break;
+                case 2:
+                    viewEvents();
+                    break;
+                case 3:
+                    System.out.println("Exiting Event Planner...");
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println("Invalid choice! Please choose a valid option.");
+            }
+        }
+    }
+
+    // Method to create a new event
+    private static void createEvent() {
+        System.out.print("\nEnter event name: ");
+        String name = scanner.nextLine();
+        
+        System.out.print("Enter event date (e.g., YYYY-MM-DD): ");
+        String date = scanner.nextLine();
+        
+        System.out.print("Enter event location: ");
+        String location = scanner.nextLine();
+        
+        System.out.print("Enter event description: ");
+        String description = scanner.nextLine();
+        
+        Event newEvent = new Event(name, date, location, description);
+        events.add(newEvent);  // Add the new event to the list
+        
+        System.out.println("\nEvent created successfully!");
+    }
+
+    // Method to view all created events
+    private static void viewEvents() {
+        if (events.isEmpty()) {
+            System.out.println("\nNo events found.");
+        } else {
+            System.out.println("\nList of Events:");
+            for (Event event : events) {
+                System.out.println("\n" + event);
+            }
+        }
+    }
+}
